@@ -1,0 +1,995 @@
+Starting ChromeDriver 77.0.3865.40 (f484704e052e0b556f8030b65b953dce96503217-refs/branch-heads/3865@{#442}) on port 9325
+Only local connections are allowed.
+Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
+[1572673919.759][WARNING]: This version of ChromeDriver has not been tested with Chrome version 78.
+11월 02, 2019 2:52:00 오후 org.openqa.selenium.remote.ProtocolHandshake createSession
+정보: Detected dialect: W3C
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"><head>
+<title>삼양식품</title>
+<meta name="description" content="행복과 사랑이 넘치는 삼양식품 입니다.">
+<meta name="keywords" content="삼양식품, 삼양, 삼양패밀리, 삼양라면, 삼양맛샵,불닭볶음면">
+<meta property="og:url" content="http://www.samyangfood.co.kr/kor/index.do">
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="naver-site-verification" content="bd240b69665d6c56d594b106c1466b1016776a2b">
+
+<link rel="shortcut icon" type="image/x-icon" href="/asset/images/common/favicon.ico">
+<link rel="stylesheet" type="text/css" href="/asset/css/common.css">
+<link rel="stylesheet" type="text/css" href="/asset/css/layout.css">
+<link rel="stylesheet" type="text/css" href="/asset/css/contents.css">
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="/asset/css/ie8.css" />
+<![endif]-->
+<script async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" src="/asset/js/utils/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/asset/js/utils/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/asset/js/utils/placeholders.min.js"></script>
+<script type="text/javascript" src="/asset/js/utils/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="/asset/js/utils/jquery.form.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/asset/js/utils/base64.js"></script>  
+
+<script type="text/javascript" src="/asset/js/front_js.js"></script>
+<script type="text/javascript" src="/asset/js/common.js"></script>
+<script type="text/javascript" src="/asset/js/check.js"></script>
+<script type="text/javascript" src="/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+
+
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s[removed].insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '655851634579130');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=655851634579130&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code --> 
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-87145675-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript">
+
+	//페이스북 최근 글 가져오기(3개)
+	var fnGetFbRssFeed = function(){
+		var fbGraphUrl = "https://graph.facebook.com/v2.1/Samyangfoods/posts?limit=3&access_token=229602793717353|rIbQG6V0X-jSDAgIFYmBq5aYgXQ";
+		$.get(
+				fbGraphUrl,
+		        function(data) {
+					for ( var i = 0 ; i < data.data.length ; i++ ) {
+
+						var item = data.data[i];
+						if(i == 0){
+
+							$("div.sns-box").eq(i).find("a").text( cutString(item['message'], 50, '..') );
+							$("div.sns-box").eq(i).find("span.date").text( item['created_time'].substr(0, 10).replace(/-/g, "."));
+
+						}else{
+
+							var j= i-1;
+							$("div.block-sns ul.sns-list li").eq(j).find("a").text( cutString(item['message'], 50, '..') );
+							$("div.block-sns ul.sns-list li").eq(j).find("span.date").text( item['created_time'].substr(0, 10).replace(/-/g, "."));
+
+						}
+
+					}
+
+		    }
+		    , 'json');
+	};
+
+
+	//해당카테고리 목록 가져오기
+	function fnGetList(pSeq) {
+
+		var frm = $("form[name=searchForm]");
+		var params = "searchMainUseYn=Y&searchCateCd1="+pSeq
+
+		// ajaxSubmit 통신 후 처리 작업
+	    var fnApplyCallback = function(jdata, e, a){
+
+			var productList = jdata.list;
+	        var addHtml = "";
+
+			if (productList.length > 0 ) {
+		        addHtml = "	<ul class='bxslider'>";
+				for ( var i = 0 ; i < productList.length ; i ++  ) {
+					addHtml += "<li>";
+	     		  	addHtml += "	<a href='#' onclick=\"javascript:fnView('./brand/view.do', " + productList[i].seq + "); return false;\">";
+	     		  	addHtml += "		<img src='" + productList[i].pcImgFilenm + "' alt='" + productList[i].pcImgOrgfilenm + "' />" + productList[i].simpleContsMain + "<strong>" + productList[i].proNm + "</strong>";
+	     		  	addHtml += "	</a>";
+					addHtml += "</li>";
+				}
+
+		        addHtml += "	</ul>";
+		        addHtml += "	<div class='slidedim'>";
+		        addHtml += "		<div class='dim01'></div>";
+		        addHtml += "		<div class='dim02'></div>";
+		        addHtml += "	</div>";
+
+			}
+			$("#productListArea").html(addHtml);
+
+	    };
+
+	    $.ajax({
+	        type: "post",
+	        url : "./jsonList.do",
+	        dataType : "json",
+	        data : params,
+	        cache:false,
+	        error:function ( e ){
+	        },
+	        success:fnApplyCallback,
+            complete:function(){
+
+            	setTimeout('setBxslider()', 100);
+
+            }
+
+
+	    });
+	}
+
+
+	var setBxslider = function(){
+
+		$('.bxslider').bxSlider({
+			infiniteLoop: false,
+			hideControlOnEnd: true,
+			minSlides: 7,
+			maxSlides: 7,
+			moveSlides: 1,
+			slideWidth: 228,
+			controls: false,
+
+		});
+
+	}
+
+	$(document).ready(function() {
+
+		$("div.tab-type03 > ul >li").eq(0).find("img").click();
+    	fnGetFbRssFeed();
+
+		$('.evt-slide > ul').bxSlider({
+			auto: true,
+	  		autoControls: false
+		});
+
+	});
+</script>
+</head>
+<body style="">
+	<a href="#dBody" id="skipNavi">본문 바로가기</a>
+	<hr>
+
+
+	<!-- wrap -->
+	<div id="wrap" class="main">
+
+		<!-- dHead -->
+		
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+	<!-- dHead -->
+	<div id="dHead">
+
+		<div class="dim"></div>
+
+		<div id="quickMenu">
+			<div>
+				<ul>
+					<li><a href="/kor/publicity/press/list.do">홍보관</a></li>
+					<li><a href="#" onclick="window.open('/kor/publicity/history/index.do', 'new', 'width=1157, height=728, resizable=no'); return false;">역사관</a></li>
+					
+					<li><a href="/kor/community/inquiry/write.do">문의하기</a></li>
+				</ul>
+				<div class="move-top">
+					<a href="#">TOP</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- tnb -->
+		<div id="tnb">
+			<div class="tnb-wrap">
+				<p>행복과 사랑이 넘치는 <strong>삼양식품</strong> 입니다</p>
+				<div class="utill">
+					<ul class="sns">
+						<li><a href="http://blog.naver.com/samyangfoods" target="_blank"><img src="/asset/images/icon/ico_sns_blog.png" alt=""></a></li>
+						<li><a href="https://www.instagram.com/samyangfoods/" target="_blank"><img src="/asset/images/icon/ico_sns_insta.png" alt=""></a></li>
+						<li><a href="https://twitter.com/samyangfoods" target="_blank"><img src="/asset/images/icon/ico_sns_twitter.png" alt=""></a></li>
+						<li><a href="https://www.facebook.com/samyangfoods" target="_blank"><img src="/asset/images/icon/ico_sns_facebook.png" alt=""></a></li>
+					</ul>
+					<ul class="top-link">
+
+						<li><a href="http://www.sydeliciousshop.com/" target="_blank" class="btn01"><img src="/asset/images/common/gnb_shop.gif" alt="삼양맛샵"></a></li>
+						<li><a href="/kor/ir/bulletin.do">IR</a></li>
+						<li><a href="https://job.samyangfoods.com/" target="_blank">인재채용</a></li>
+						<li class="lang">
+							<a href="">KOR</a>
+							<ul>
+								<li><a href="/kor/index.do">KOR</a></li>
+								<li><a href="/eng/index.do">ENG</a></li>
+								<li><a href="/chn/index.do">CHN</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //tnb -->
+
+		<!-- gnbWrap -->
+		<div id="gnbWrap">
+			<h1><a href="/kor/index.do"><img src="/asset/images/common/logo.png" alt="SAMYANG"></a></h1>
+			<!-- gnb -->
+			<ul class="gnb">
+				<li><a href="/kor/brand/samyangRamen.do">브랜드</a></li>
+				<li><a href="/kor/family/farm.do">삼양패밀리</a></li>
+				<li><a href="/kor/publicity/press/list.do">홍보관</a></li>
+				<li><a href="/kor/community/notice/list.do">커뮤니티</a></li>
+				<li><a href="/kor/information/company/index.do">회사소개</a></li>
+			</ul>
+			<!-- //gnb -->
+		</div>
+		<!-- //gnbWrap -->
+		<div class="submenu-wrap">
+			<div>
+				<div class="submenu">
+					<ul class="sub01">
+						<li><a href="/kor/brand/samyangRamen.do">삼양라면</a></li>
+						<li><a href="/kor/brand/spicyRamen.do">불닭볶음면</a></li>
+						<li><a href="/kor/brand/series.do">짜짜로니</a></li>
+						<li><a href="/kor/brand/popeye.do">별뽀빠이</a></li>
+						<li><a href="/kor/brand/organicMilk.do">삼양유기농우유</a></li>
+						<li><a href="/kor/brand/list.do">제품 전체보기</a></li>
+					</ul>
+					<ul class="sub02">
+						<li><a href="/kor/family/farm.do">삼양 목장</a></li>
+						<li><a href="/kor/family/ho.do">호면당</a></li>
+						<li><a href="/kor/family/new.do">삼양냉동</a></li>
+						<li><a href="/kor/family/jejuMilk.do">삼양제주우유</a></li>
+					</ul>
+					<ul class="sub03">
+						<li><a href="/kor/publicity/press/list.do">보도자료</a></li>
+						<li><a href="/kor/publicity/public/list.do">홍보영상</a></li>
+						<li><a href="/kor/publicity/ad/list.do">광고영상</a></li>
+						<li><a href="/kor/publicity/hochiFriends/index.do">호치와 친구들</a></li>
+						<li><a href="#" onclick="window.open('/kor/publicity/history/index.do', 'new', 'width=1157, height=728, resizable=no'); return false;">삼양역사관</a></li>
+					</ul>
+					<ul class="sub04">
+						<li><a href="/kor/community/notice/list.do">공지사항</a></li>
+						<li><a href="/kor/community/event/list.do">이벤트</a></li>
+<!-- 						<li><a href="/kor/community/idea/write.do">아이디어</a></li> -->
+						
+						<li><a href="/kor/community/faq/list.do">FAQ</a></li>
+						<li><a href="/kor/community/inquiry/write.do">고객문의</a></li>
+						<li><a href="/kor/community/story/list.do">삼양 사연</a></li>
+					</ul>
+					<ul class="sub05">
+						<li><a href="/kor/information/company/index.do">삼양식품</a></li>
+						<li><a href="/kor/information/group/index.do">계열사</a></li>
+						<li><a href="/kor/information/factory/index.do">공장</a></li>
+						<li><a href="/kor/information/probono/list.do">사회공헌</a></li>
+						<li><a href="/kor/information/location/index.do">오시는길</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //dHead -->
+
+		<!-- //dHead -->
+
+		<!-- dBody -->
+		<div id="dBody">
+
+			<!-- container -->
+			<div id="container">
+
+				<!-- visual-banner -->
+				<div class="visual-banner">
+					<ul class="slide-contents">
+						
+							<li class="on">
+								<a href="/kor/brand/samyangRamen.do" style="background:#ffcbae url('/upload/banner/20160902/20160902152120299111.jpg') no-repeat center;"></a>
+							</li>
+						
+							<li>
+								<a href="/kor/brand/spicyRamen.do" style="background:#fcab7b url('/upload/banner/20190618/20190618144917232036.jpg') no-repeat center;"></a>
+							</li>
+						
+							<li>
+								<a href="/kor/brand/series.do" style="background:#be96b1 url('/upload/banner/20190215/20190215173954811230.jpg') no-repeat center;"></a>
+							</li>
+						
+							<li>
+								<a href="/kor/brand/popeye.do" style="background:#a8b8ed url('/upload/banner/20160903/20160903212843612097.jpg') no-repeat center;"></a>
+							</li>
+						
+							<li>
+								<a href="/kor/brand/organicMilk.do" style="background:#c1f06f url('/upload/banner/20190503/20190503144600076049.jpg') no-repeat center;"></a>
+							</li>
+						
+							<li>
+								<a href="http://www.sydeliciousshop.com" style="background:#fed572 url('/upload/banner/20160929/20160929195235468003.jpg') no-repeat center;"></a>
+							</li>
+						
+					</ul>
+
+					<div class="control-arrows">
+						<a href="#" class="prev"><img src="/asset/images/main/btn_slide_prev.png" alt=""></a>
+						<a href="#" class="next"><img src="/asset/images/main/btn_slide_next.png" alt=""></a>
+					</div>
+
+					<div class="control">
+						
+							<a href="#" class="on"></a>
+						
+							<a href="#"></a>
+						
+							<a href="#"></a>
+						
+							<a href="#"></a>
+						
+							<a href="#"></a>
+						
+							<a href="#"></a>
+						
+					</div>
+
+				</div>
+				<!-- //visual-banner -->
+
+				<form id="searchForm" name="searchForm" action="./jsonList.do" method="get">
+				<input id="searchCateCd1" name="searchCateCd1" type="hidden" value="">
+				<input id="searchMainUseYn" name="searchMainUseYn" type="hidden" value="Y">
+				<input id="seq" name="seq" type="hidden" value="">
+				</form>
+
+				<div class="product-wrap">
+					<div>
+						<h3>삼양 제품소개<span>Delicious Together!</span></h3>
+						<p class="product-txt">다양한 제품을 <br>한곳에서 즐기세요!</p>
+
+						<!-- tab-type03 -->
+						<div class="tab-type03">
+							<ul style="width: 380px;">
+								
+								<li>
+									
+									
+									라면류
+									<a href="#" onclick="fnGetList(45)" class="on">
+										<img src="/asset/images/product/product_tab1.png" alt="">
+									</a>
+								</li>
+								
+								<li>
+									
+									
+									스낵류
+									<a href="#" onclick="fnGetList(46)">
+										<img src="/asset/images/product/product_tab2.png" alt="">
+									</a>
+								</li>
+								
+								<li>
+									
+									
+									유제품류
+									<a href="#" onclick="fnGetList(47)">
+										<img src="/asset/images/product/product_tab3.png" alt="">
+									</a>
+								</li>
+								
+								<li>
+									
+									
+									장/소스류
+									<a href="#" onclick="fnGetList(48)">
+										<img src="/asset/images/product/product_tab4.png" alt="">
+									</a>
+								</li>
+								
+							</ul>
+						</div>
+						<!-- //tab-type03 -->
+
+						<!-- product-new -->
+						<div class="product-new">
+							<ul>
+								
+									<li class="on">
+										<a href="/kor/brand/view.do?seq=481" "=""><img src="/upload/product/20191017/20191017164538412219.png" alt="리스트이미지.png"></a>
+									</li>
+								
+									<li>
+										<a href="/kor/brand/view.do?seq=480" "=""><img src="/upload/product/20191014/20191014114034661211.png" alt="리스트이미지.png"></a>
+									</li>
+								
+									<li>
+										<a href="/kor/brand/view.do?seq=478" "=""><img src="/upload/product/20191002/20191002104316287200.png" alt="리스트이미지.png"></a>
+									</li>
+								
+							</ul>
+							<div class="control">
+								
+									<a href="#" class="on"></a>
+								
+									<a href="#"></a>
+								
+									<a href="#"></a>
+								
+							</div>
+						</div>
+						<!-- //product-new -->
+
+						<!-- product-section -->
+						<div class="product-section">
+							<div class="product-slide" id="productListArea">	<div class="bx-wrapper" style="max-width: 1596px;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 300px;"><ul class="bxslider" style="width: 1215%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);"><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 481); return false;">		<img src="/upload/product/20191017/20191017164538412219.png" alt="리스트이미지.png">걱정을 Light하게 덜었다!<strong>라이트 불닭볶음면</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 480); return false;">		<img src="/upload/product/20191014/20191014114034661211.png" alt="리스트이미지.png">알싸하게 매운 짜장라면<strong>불타는 고추짜장</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 478); return false;">		<img src="/upload/product/20191002/20191002104316287200.png" alt="리스트이미지.png">횡성한우로 더욱 맛있어진<strong>쇠고기면</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 473); return false;">		<img src="/upload/product/20190827/20190827111620808152.png" alt="리스트이미지.png">끊을 수 없는 마라의 향연<strong>마라볶음면</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 464); return false;">		<img src="/upload/product/20190716/20190716113047499094.png" alt="리스트이미지.png">은은하게 다가오는 마라의 풍미<strong>마라탕면</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 53); return false;">		<img src="/upload/product/20160830/20160830115314101005.png" alt="봉지면_리스트이미지.psd_0001_02_불닭볶음면.png">초강력 화끈한 매운맛!<strong>불닭볶음면</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 54); return false;">		<img src="/upload/product/20180913/20180913135237967037.png" alt="리스트이미지.png">진한 햄맛이 느껴지는 원조의 맛<strong>삼양라면</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 46); return false;">		<img src="/upload/product/20171016/20171016135938827562.png" alt="나가사끼짬뽕_리스트.png">시원한 해물맛이 느껴지는<strong>나가사끼짬뽕</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 44); return false;">		<img src="/upload/product/20171016/20171016140606521564.png" alt="맛있는라면_리스트.png">라면보다 더 맛있는라면<strong>맛있는라면</strong>	</a></li><li style="float: left; list-style: none; position: relative; width: 228px;">	<a href="#" onclick="javascript:fnView('./brand/view.do', 43); return false;">		<img src="/upload/product/20181214/20181214171009729182.png" alt="리스트이미지.png">풍부해진 짜장의 맛<strong>짜짜로니</strong>	</a></li>	</ul></div><div class="bx-controls bx-has-pager"><div class="bx-pager bx-default-pager"><div class="bx-pager-item"><a href="" data-slide-index="0" class="bx-pager-link active">1</a></div><div class="bx-pager-item"><a href="" data-slide-index="1" class="bx-pager-link">2</a></div><div class="bx-pager-item"><a href="" data-slide-index="2" class="bx-pager-link">3</a></div><div class="bx-pager-item"><a href="" data-slide-index="3" class="bx-pager-link">4</a></div></div></div></div>	<div class="slidedim">		<div class="dim01"></div>		<div class="dim02"></div>	</div></div>
+						</div>
+						<!-- //product-section -->
+
+					</div>
+				</div>
+				<!-- //product-wrap -->
+
+				<div class="family-wrap">
+					<div>
+						<h3>삼양 패밀리<span>삼양식품의 관계·계열사를 소개합니다.</span></h3>
+
+						<div class="family-block">
+							<div class="block-area1">
+								<div class="block1">
+									<div class="tit type01">대관령 삼양 목장</div>
+									<p>
+										600만평의 광활한 대지 <br>푸르른 대관령 무공해 천연 목장
+									</p>
+									<a href="/kor/family/farm.do" class="btn-more"><img src="/asset/images/main/btn_more_fam01.png" alt="자세히 보기"></a>
+								</div>
+							</div>
+
+							<div class="block-area2">
+								<div class="block1">
+									<div class="tit">삼양 냉동</div>
+									<p>
+										맛에 간편함을 더하다
+									</p>
+									<a href="/kor/family/new.do" class="btn-more"><img src="/asset/images/main/btn_more_fam02.png" alt="자세히 보기"></a>
+								</div>
+							</div>
+
+							<div class="block-area3">
+								<div class="block1">
+									<div class="tit">호면당</div>
+									<p>
+										품격있는 <br>
+										프리미엄 누들 하우스
+									</p>
+									<a href="/kor/family/ho.do" class="btn-more"><img src="/asset/images/main/btn_more_fam03.png" alt="자세히 보기"></a>
+								</div>
+
+								<div class="block2">
+									<div class="tit">삼양 제주 우유</div>
+									<p>
+										자연에 가장 가까운 맛!
+									</p>
+									<a href="/kor/family/jejuMilk.do" class="btn-more" style="margin-top:42px"><img src="/asset/images/main/btn_more_fam04.png" alt="자세히 보기"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="community-wrap">
+					<div>
+						<h3>삼양 커뮤니티<span>삼양식품은 여러분과 함께 맛있는 세상을 만들어갑니다.</span></h3>
+						<ul class="sns-link">
+							<li><a href="https://www.facebook.com/samyangfoods" target="_blank"><img src="/asset/images/main/ico_facebook.png" alt="facebook"></a></li>
+							<li><a href="https://www.instagram.com/samyangfoods/" target="_blank"><img src="/asset/images/main/ico_insta.png" alt="insta"></a></li>
+							<li><a href="http://blog.naver.com/samyangfoods" target="_blank"><img src="/asset/images/main/ico_blog.png" alt="blog"></a></li>
+							<li><a href="https://twitter.com/samyangfoods" target="_blank"><img src="/asset/images/main/ico_twitter.png" alt="twitter"></a></li>
+						</ul>
+						<div class="community-block">
+							<div class="block-area1">
+								<div class="block-sns">
+									<div class="sns-box">
+										<div><img src="/asset/images/main/ico_facebook.png" alt="facebook" style="width:27px"></div>
+										<p>
+											<a href="https://www.facebook.com/samyangfoods/" target="_blank">
+											</a>
+										</p>
+										<span class="date"></span>
+									</div>
+									<ul class="sns-list">
+										<li>
+											<div><img src="/asset/images/main/ico_facebook.png" alt="facebook" style="width:27px"></div>
+											<p>
+												<a href="https://www.facebook.com/samyangfoods/" target="_blank">
+												</a>
+											</p>
+											<span class="date"></span>
+										</li>
+										<li>
+											<div><img src="/asset/images/main/ico_facebook.png" alt="facebook" style="width:27px"></div>
+											<p>
+												<a href="https://www.facebook.com/samyangfoods/" target="_blank">
+												</a>
+											</p>
+											<span class="date"></span>
+										</li>
+									</ul>
+									<a href="#" class="open-sns"><img src="/asset/images/main/btn_more_sns.gif" alt="더보기"></a>
+								</div>
+
+								<div class="block-event">
+									<div class="evt-slide">
+										<!--div class="tit">EVENT</div-->
+										<div class="bx-wrapper" style="max-width: 100%;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative;"><ul style="width: 215%; position: relative;">
+											
+										</ul></div><div class="bx-controls bx-has-pager bx-has-controls-direction"><div class="bx-pager"></div><div class="bx-controls-direction"><a class="bx-prev" href="">Prev</a><a class="bx-next" href="">Next</a></div></div></div>
+									</div>
+								</div>
+
+							</div>
+							<div class="block-area2">
+								<div class="block-video">
+
+									<a href="" class="pop-video">
+										<img src="/asset/images/tmp/main_video_thumb.jpg" alt="">
+										<span><img src="/asset/images/common/video_play.png" alt=""></span>
+										<span class="dim-video"><img src="/asset/images/main/video_dim.png" alt=""></span>
+									</a>
+								</div>
+								<div class="block-story">
+									<div class="tit">삼양 사연</div>
+									<p>
+										삼양식품과 함께한 <br>여러분의 다양한 사연을 기다립니다.
+									</p>
+									<a href="/kor/community/story/list.do" class="btn-more"><img src="/asset/images/main/btn_more_comm01.png" alt="자세히 보기"></a>
+								</div>
+							</div>
+							<div class="block-area3">
+								<div class="block-recipe">
+									<div class="tit">맛있는 나눔</div>
+									<p>
+										
+										모두가 행복한 맛있는 세상
+										
+									</p>
+									
+									<a href="/kor/information/probono/list.do" class="btn-more"><img src="/asset/images/main/btn_more_comm03.png" alt="자세히 보기"></a>
+								</div>
+								<div class="block-notice">
+									<div class="tit">공지사항</div>
+									<p>
+										삼양식품 원주공장 견학 프로그램을 진행합니다.
+									</p>
+									<span class="date">2019.04.26</span>
+									<a href="/kor/community/notice/list.do" class="link-boards"><img src="/asset/images/main/btn_notice.png" alt="더보기"></a>
+								</div>
+
+								<div class="block-shop">
+									<div class="tit">삼양 맛샵 오픈</div>
+									<p>
+										삼양식품의 다양한 제품을 만나보세요.
+									</p>
+									<a href="http://www.sydeliciousshop.com/" target="_blank" class="btn-more" style="margin-top:50px;"><img src="/asset/images/main/btn_more_comm02.png" alt="자세히 보기"></a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- //container -->
+
+			<!-- layer-popup -->
+			<div class="layer-popup">
+				<div class="layer-wrap" style="width:907px;">
+					<iframe width="907" height="573" src="https://www.youtube.com/embed/3n8Dtth6jGg?rel=0" frameborder="0" allowfullscreen=""></iframe>
+					<a href="#" class="close-btn"><img src="/asset/images/icon/btn_close.png" alt="X"></a>
+				</div>
+			</div>
+			<!-- //layer-popup -->
+
+
+			<!-- main-popup -->
+			
+				
+					<div id="popup" style="top:150px; left:10px;">
+						<div class="pop-wrap" id="mainPop18">
+<!-- 							<div class="pop-head"> -->
+
+<!-- 							</div> -->
+							<div class="pop-body">
+								<a href="https://www.samyangfoods.com/kor/community/notice/view.do?seq=736&amp;pageIndex=1&amp;pageUnit=10&amp;searchCondition=&amp;searchKeyword=">
+									<img src="/upload/popup/20190425/20190425173257698037.jpg" alt="팝업이미지_전중윤을 찾습니다.jpg">
+								</a>
+							</div>
+
+							<div class="pop-footer">
+								<form name="layer_form">
+									<input type="checkbox" id="pu-popMain18" name="chkboxPop18" onclick="mainPopCloseWin(18)">
+									<label for="pu-popMain18">오늘 하루 이창 열지 않기</label>
+								</form>
+							</div>
+							<a href="#" class="pop-close"><img src="/asset/images/common/layer_close02.png" alt="레이어 닫기"></a>
+						</div>
+						<script type="text/javascript">
+							if(getCookieVal("samyangfoodMainPop18") == "samyangfoodMainPop18_cookie") {
+								$("#mainPop18").css("display", "none");
+							}
+						</script>
+					</div>
+				
+			
+			<!-- //main-popup -->
+
+		</div>
+		<!-- //dBody -->
+
+		<!-- dFoot -->
+			
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+ <!--
+	<script>
+	var currentOS;
+	var mobile = (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase()));
+
+	if (mobile) {
+		if( location.search.indexOf("?mobile") < 0 ){
+			location.href="http://m.samyangfoods.com/kor/index.do"
+		}
+		//document.getElementById("mobileGo").innerHTML = "<a href=\"http://127.0.0.1:18082\">모바일 버전으로 보기</a>";
+	} else {
+		// 모바일이 아닐 때
+	}
+	</script>
+-->
+	<script>
+		var currentOS;
+		var mobile = (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase()));
+
+
+		if (mobile) { //핸드폰일때
+
+			//★★★★★★ ?mobile 체크★★★★★★
+			if(getCookieVal("mobileFlag")!="Y"){
+				setCookie("mobileFlag", "");
+			}
+
+			if( location.search.indexOf("?mobile") == 0 ){ //mobile 있어
+
+				//★★★★★★ www체크★★★★★★
+				if( location.search.indexOf("www") < 0 ){ // www 있어
+
+					//★★★★★★mobileFlag 쿠키 생성★★★★★★
+					setCookie("mobileFlag", "Y");
+
+				}else{ //www 없어
+					setCookie("mobileFlag", "N");
+					location.href="http://m.samyangfoods.com/kor/index.do"
+				}
+
+			}else{ // -1 //mobile 없어
+
+				if(getCookieVal("mobileFlag")!="Y"){
+					location.href="http://m.samyangfoods.com/kor/index.do"
+					setCookie("mobileFlag", "N");
+				}
+
+			}
+
+		} else {// 모바일이 아닐 때
+			setCookie("mobileFlag", "N");
+
+		}
+
+		window.onunload = function() {
+			setCookie("mobileFlag", "");
+		}
+/*
+		$(document).on('unload', function(){
+			setCookie("mobileFlag", "");
+			//setCookie("redirectFlag", "");
+		});
+*/
+	</script>
+
+	<div id="dFoot">
+		<div>
+			<p class="logo"><img src="/asset/images/common/logo2.png" alt="SAMYANG"></p>
+
+			<div class="foot-area01">
+				<ul>
+					<li><a href="/kor/information/company/index.do">회사소개</a></li>
+     					<li><a href="/kor/community/inquiry/write.do">고객지원</a></li>
+					<li><a href="/kor/ir/bulletin.do">IR</a></li>
+					<li><a href="/kor/recruit/list.do">인재채용</a></li>
+			         	<li><a href="/kor/information/location/index.do">찾아오시는 길</a></li>
+                         	        <li><a href="#" id="popup_p_info_btn"><b>개인정보처리방침</b></a></li>
+				</ul>
+				<address>
+					서울특별시 성북구 오패산로3길 104(하월곡동) <span>Tel. 02-940-3000</span><span>Fax. 02-942-4350</span><br>
+					※ 고객지원센터 : 080-940-3333 (무료상담전화) <br>
+					상담시간 (평일) 오전 9시 - 오후 6시 [점심시간 : 오후 12시 - 1시 ]
+					</address>
+				<p class="copyright">Copyright ? 2016 Samyangfoods. All rights reserved.</p>
+			</div>
+
+			<div class="foot-area02">
+				<ul class="sns">
+					<li><a href="http://blog.naver.com/samyangfoods" target="_blank"><img src="/asset/images/icon/ico_sns_blog2.png" alt=""></a></li>
+					<li><a href="https://www.instagram.com/samyangfoods/" target="_blank"><img src="/asset/images/icon/ico_sns_insta2.png" alt=""></a></li>
+					<li><a href="https://twitter.com/samyangfoods" target="_blank"><img src="/asset/images/icon/ico_sns_twitter2.png" alt=""></a></li>
+					<li><a href="https://www.facebook.com/samyangfoods" target="_blank"><img src="/asset/images/icon/ico_sns_facebook2.png" alt=""></a></li>
+				</ul>
+				<div class="family">
+					<a href="">Family Site</a>
+					<ul>
+						<li><a href="http://www.sydeliciousshop.com/" target="_blank">삼양맛샵</a></li>
+						<li><a href="http://www.samyangranch.co.kr" target="_blank">삼양목장</a></li>
+						<li><a href="http://www.homyeondang.com/" target="_blank">호면당</a></li>
+						<li><a href="http://www.saeahchim.co.kr/" target="_blank">삼양냉동</a></li>
+						<li><a href="http://www.jejumilk.com/" target="_blank">제주우유</a></li>
+					</ul>
+					<p style="text-align:right"><img src="/asset/images/common/award_2017.jpg" alt="웹어워드2017" style="margin-top:5px;"></p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<!-- layer-popup02 -->
+	<script language="javascript" type="text/javascript">
+
+		    jQuery(document).ready(function () {
+			$('#popup_p_info_btn').click(function () {
+			    $('#popup_p_info').css("display","block");
+
+			});
+			$('#btn_popup_close01').click(function () {
+			    $('#popup_p_info').css("display","none");
+
+			});
+			$('#btn_popup_close02').click(function () {
+			    $('#popup_p_info').css("display","none");
+
+			});
+
+		    });
+		</script>
+
+
+
+	<div class="popup_p_info" id="popup_p_info" style="width:100%;height:100%;position: absolute;z-index:99999;top:0;left:0;display:none;">
+		<div class="popup_p_info_D" style="position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.7);display:block"></div>
+
+		<div class="layer-wrap02" style="position:absolute;top:50px;left:50%;margin-left:-441px;">
+			<div class="layer-head02">
+				<h4>개인정보 수집 약관</h4>
+			</div>
+			<div class="layer-con02">
+				<div class="coment02">
+				 <p>
+				  <strong>개인정보 처리방침</strong>
+				  <span>주식회사 삼양식품은 정보통신망 이용촉진 및 정보보호 등에 관한 법률,<br>개인정보보호법 등 개인정보 보호 관련 법령을 준수합니다.</span>
+				 </p>
+				</div>
+
+				<div class="agree-area02" style="width:800px; height:400px; y-overflow:scroll">
+										1.수집하는 개인정보 항목<br>
+					삼양식품은 서비스 제공을 위해 필요한 최소한의 범위 내에서 아래와 같은 개인정보를 수집하고 있습니다.<br>
+					- 이벤트 참여시 <br>
+					가.필수항목: 성명, 전자우편주소, 휴대전화번호, 주소<br>
+					- 고객문의/아이디어 게시판 작성 시 <br>
+					가. 필수항목: 성명, 전자우편주소, 휴대전화번호<br>
+					- 인재채용 입사지원 시<br>
+					가. 필수항목: 성명, 생년월일, 휴대전화번호, 주소<br>
+					- 이용자의 브라우저 종류 및 OS, 검색어, 서비스 이용 기록<br>
+					- IP Address, 방문 일시, 쿠키, 서비스 이용기록, 불량 이용 기록<br><br>
+
+					2.개인정보의 수집 및 이용목적<br>
+					회사는 다음과 같은 방법으로 개인정보를 수집합니다.<br>
+					- 홈페이지, 전화, 게시판, 이메일, 이벤트 응모, 배송요청<br>
+					- 생성정보 수집 툴을 통한 수집<br>
+					- 인재채용 입사지원<br><br>
+
+					삼양식품은 수집한 개인정보를 다음의 목적을 위해 활용합니다.<br>
+					- 서비스 제공에 관한 계약 이행 및 서비스 제공에 따른 콘텐츠 제공<br>
+					- 마케팅 및 광고에 활용 : 신규 서비스(제품) 개발 및 특화 , 이벤트 등 광고성 정보 전달 , 접속 빈도 파악 또는 회원의 서비스 이용에 대한 통계<br>
+					- 제휴서비스 등을 위한 제3자 제공<br><br>
+
+					3.개인정보 제공<br>
+					삼양식품은 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다. 다만, 아래의 경우에는 예외로 합니다.<br>
+					이용자들이 사전에 동의한 경우, 법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우 <br><br>
+
+					4.수집한 개인정보의 위탁<br>
+					삼양식품은 서비스 향상을 위해서 이용자들의 개인정보를 외부전문업체에 위탁하여 처리할 수 있습니다. 개인정보의 처리를 위탁하는 경우에는 미리 그 사실을 이용자들에게 공지할 것입니다. 또한 위탁계약 등을 통하여 서비스제공자의 개인정보보호 관련 지시엄수, 개인정보에 관한 비밀유지, 제3자 제공의 금지 및 사고시의 책임부담 등을 명확히 규정하고 당해 계약내용을 서면 또는 전자적으로 보관하여 이용자의 권익을 보호하고 있습니다. 삼양식품의 개인정보 위탁 처리 기관 및 위탁되는 개인정보와 그 위탁 기간은 아래와 같습니다. <br><br>
+
+					수탁자 : 오케이토마토<br>
+					위탁업무내용 : 시스템 유지보수<br>
+					기간 : 위탁 계약 종료 시까지<br><br>
+
+					수탁자 : 김성윤<br>
+					위탁업무내용 : 이벤트 상품 등의 우편물 배송 서비스<br>
+					기간 : 해당 이벤트 종료 시까지<br><br>
+
+					5.개인정보의 보유 및 이용기간<br>
+					삼양식품은 개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다. 단, 관련 법령에 따라 개인정보를 보존할 의무 또는 필요가 있는 경우 아래와 같이 개인정보를 보존합니다.<br><br>
+
+					회사 내부 방침에 의한 정보보유 사유<br>
+					-부정이용기록 보존 이유 : 부정 이용 방지<br>
+					보존 기간 : 1년 <br>
+
+					관련법령에 의한 정보보유 사유<br>
+					상법, 전자상거래 등에서의 소비자보호에 관한 법률 등 관계법령의 규정에 의하여 보존할 필요가 있는 경우 삼양식품은 관계법령에서 정한 일정한 기간 동안 회원정보를 보관합니다. 이 경우 삼양식품은 보관하는 정보를 그 보관의 목적으로만 이용하며 보존기간은 아래와 같습니다. <br>
+					-소비자의 불만 또는 분쟁처리에 관한 기록 <br>
+					보존 이유 : 전자상거래 등에서의 소비자보호에 관한 법률<br>
+					보존 기간 : 3년 <br><br>
+
+					-본인확인에 관한 기록<br>
+					보존 이유 : 정보통신 이용촉진 및 정보보호 등에 관한 법률 <br>
+					보존 기간 : 6개월 <br><br>
+
+					-방문에 관한 기록  <br>
+					보존 이유 : 통신비밀보호법<br>
+					보존 기간 : 3개월 <br><br>
+
+					6.개인정보의 파기절차 및 방법<br>
+					삼양식품은 원칙적으로 개인정보 수집 및 이용목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 파기절차 및 방법은 다음과 같습니다.<br><br>
+
+					파기절차<br>
+					회원님이 고객문의 등록 등을 위해 입력하신 정보는 목적이 달성된 후 별도의 DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 관련 법령에 의한 정보보호 사유에 따라(보유 및 이용기간 참조) 일정 기간 저장된 후 파기됩니다. 별도 DB로 옮겨진 개인정보는 법률에 의한 경우가 아니고서는 보유 되어지지 않으며 이외의 다른 목적으로 이용되지 않습니다.<br><br>
+
+					파기방법<br>
+					전자적 파일형태로 저장된 개인정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 삭제합니다. 종이에 출력된 개인정보는 분쇄기로 분쇄하거나 소각을 통하여 파기합니다.<br><br>
+
+					7.이용자 및 법정대리인의 권리와 그 행사방법<br>
+					이용자 및 법정대리인이 개인 정보 오류에 대한 정정을 요청하신 경우에는 정정을 완료하기 전까지 해당 개인 정보를 이용 또는 제공하지 않습니다. 또한 잘못된 개인정보를 제3자에게 이미 제공한 경우에는 정정 처리결과를 제3자에게 지체 없이 통지하여 정정이 이루어지도록 하겠습니다. 삼양식품은 이용자 또는 법정대리인의 요청에 의해 해지 또는 삭제된 개인정보는 “회사 홈페이지가 수집하는 개인정보의 보유 및 이용기간” 에 명시된 바에 따라 처리하고 그 외의 용도로 열람 또는 이용할 수 없도록 처리하고 있습니다. 
+					개인정보와 관련 의견이 있으신 경우 담당자에게 서면, 전화 또는 이메일로 연락하시면 본인 확인 후 지체 없이 조치하겠습니다. 
+					<br><br>
+
+					8.개인정보 자동수집 장치의 설치, 운영 및 그 거부에 관한 사항<br>
+					삼양식품은 귀하의 정보를 수시로 저장하고 찾아내는 ‘쿠키(cookie)’ 등을 운용합니다. 쿠키란 삼양식품 웹사이트를 운영하는데 이용되는 서버가 귀하의 브라우저에 보내는 아주 작은 텍스트 파일로서 귀하의 컴퓨터 하드디스크에 저장됩니다. 삼양식품의 웹사이트는 다음과 같은 목적을 위해 쿠키를 사용합니다.<br><br>
+
+					쿠키 등 사용목적<br>
+					회원과 비회원의 접속 빈도나 방문 시간 등을 분석, 이용자의 취향과 관심분야를 파악 및 자취 추적, 각종 이벤트 참여 정도 및 방문 회수 파악 등을 통한 타겟 마케팅 및 개인 맞춤 서비스 제공을 목적으로 하며, 귀하는 쿠키 설치에 대한 선택권을 가지고 있습니다. 따라서, 귀하는 웹브라우저에서 옵션을 설정함으로써 모든 쿠키를 허용하거나, 쿠키가 저장될 때마다 확인을 거치거나, 아니면 모든 쿠키의 저장을 거부할 수도 있습니다.<br><br>
+
+					쿠키 설정 거부 방법<br>
+					예: 쿠키 설정을 거부하는 방법으로는 회원님이 사용하시는 웹 브라우저의 옵션을 선택함으로써 모든 쿠키를 허용하거나 쿠키를 저장할 때마다 확인을 거치거나, 모든 쿠키의 저장을 거부할 수 있습니다.<br>
+					설정방법 예(인터넷 익스플로어의 경우) : 웹 브라우저 상단의 도구 -&gt; 인터넷 옵션 -&gt; 개인정보
+					단, 귀하께서 쿠키 설치를 거부하였을 경우 서비스 제공에 어려움이 있을 수 있습니다. <br><br>
+
+					9.개인정보의 기술적/관리적 보호 대책<br>
+					삼양식품은 이용자들의 개인정보를 취급함에 있어 개인정보가 분실, 도난, 누출, 변조 또는 훼손되지 않도록 안전성 확보를 위하여 다음과 같은 기술적/관리적 대책을 강구하고 있습니다.<br><br>
+
+					해킹 등에 대비한 대책<br>
+					삼양식품은 해킹이나 컴퓨터 바이러스 등에 의해 회원의 개인정보가 유출되거나 훼손되는 것을 막기 위해 최선을 다하고 있습니다. 개인정보의 훼손에 대비해서 자료를 수시로 백업하고 있고, 암호화통신 등을 통하여 네트워크상에서 개인정보를 안전하게 전송할 수 있도록 하고 있습니다. 그리고 침입차단시스템을 이용하여 외부로부터의 무단 접근을 통제하고 있으며, 기타 시스템적으로 보안성을 확보하기 위한 가능한 모든 기술적 장치를 갖추려 노력하고 있습니다.<br><br>
+
+					취급 직원의 최소화 및 교육<br>
+					삼양식품의 개인정보관련 취급 직원은 담당자에 한정시키고 있고 이를 위한 별도의 비밀번호를 부여하여 정기적으로 갱신하고 있으며, 담당자에 대한 수시 교육을 통하여 개인정보취급방침의 준수를 항상 강조하고 있습니다. <br><br>
+
+					10.개인정보에 관한 민원서비스<br>
+					삼양식품은 고객의 개인정보를 보호하고 개인정보와 관련한 불만을 처리하기 위하여 아래와 같이 관련 부서 및 개인정보관리책임자를 지정하고 있습니다.<br><br>
+					개인정보관리책임자 성명 : 진종기 본부장 / 지원본부<br>
+					전화번호 : 02-940-3000<br>
+					이메일 : jinree@samyangfoods.com<br><br>
+
+					개인정보 관리부서 : 홍보팀<br>
+					전화번호 : 02-940-3231<br>
+					이메일 : pr@samyangfoods.com<br><br>
+
+					고객서비스 담당부서 : 고객만족팀<br>
+					전화번호 : 02-940-3333<br>
+					이메일 : cs@samyangfoods.com<br><br>
+
+					인재채용 담당자 부서 : 총괄지원<br>
+					전화번호 : 02-940-3154<br>
+					이메일 : syfood1@samyangfoods.com<br><br>
+
+					귀하께서는 삼양식품의 서비스를 이용하시며 발생하는 모든 개인정보보호 관련 민원을 개인정보관리책임자 혹은 담당부서로 신고하실 수 있습니다. 삼양식품은 이용자들의 신고사항에 대해 신속하게 충분한 답변을 드릴 것입니다. 기타 개인정보침해에 대한 신고나 상담이 필요하신 경우에는 아래 기관에 문의하시기 바랍니다. <br><br>
+					개인정보침해신고센터<br>
+					www.1336.or.kr / Tel. 02-1336 <br><br>
+					개인정보 분쟁조정위원회<br>
+					www.kopico.or.kr / Tel. 02-1336 <br><br>
+					정보보호마크 인증위원회<br>
+					www.privacymark.or.kr / Tel. 02-580-0533 <br><br>
+					경찰청<br>
+					www.police.go.kr <br><br>
+
+					11.기타<br>
+					삼양식품에 링크되어 있는 웹사이트들이 개인정보를 수집하는 행위에 대해서는 본 "삼양식품 개인정보취급방침"이 적용되지 않음을 알려 드립니다.<br><br>
+
+					12.고지의 의무<br>
+					현 개인정보취급방침 내용 추가, 삭제 및 수정이 있을 시에는 개정 최소 7일전부터 홈페이지의 '공지사항'을 통해 고지할 것입니다.<br><br>
+					공고일자 : 2018년 08월 29일<br>
+					시행일자 : 2018년 09월 05일<br>
+
+				</div>
+
+				<!-- btn-type02 -->
+				<div class="btn-type02">
+					<a href="#" id="btn_popup_close01" class="btn03">닫기</a>
+				</div>
+				<!-- //btn-type01 -->
+
+			</div>
+			<a href="#" class="close" id="btn_popup_close02"><img src="/asset/images/common/layer_close01.png" alt="레이어 닫기"></a>
+		</div>
+	</div>
+    </div>
+	<!-- //layer-popup02 -->
+
+ <iframe src="javascript:void(0)" name="ifr" id="ifr" width="0" height="0"></iframe>
+
+		<!-- //dFoot -->
+
+	
+	<!-- //wrap -->
+
+
+
+
+
+</body></html>

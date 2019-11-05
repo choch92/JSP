@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>함수 정의와 호출</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// 화면에 h3 태그를 출력하는 함수를 생성
+	function func1(){
+		document.writeln("<h3>함수만들기</h3>" + "<br/>");
+	}
+	
+	// 영역을 만들고 Hello Function을 영역 안에 작성하는 함수
+	var func2 = function(){
+		document.writeln("<div>Hello Function</div>" + "<br/>");
+	}
+	// 함수를 만들면 static 한 영역에 함수이름과 함수의 내용이 저장
+	// 함수를 호출(call - 실행)
+	// 함수의 내용을 가지고 별도의 메모리(Stack)를 할당받아서 작업을 수행하고 작업이 끝나면 
+	// 호출한 곳으로 돌아옵니다. - return
+	func1();
+	func2();
+
+	// 함수를 호출하는 것이 아니고 fun1의 내용이 저장된 곳의 참조를 출력한 것입니다.
+	alert(func1);
+	
+	var func3 = function(msg){
+		document.writeln("<p>" + msg + "</p>");
+	}
+	func3("매개변수를 대입해서 함수 호출");
+	// 매개변수가 있는 함수에 매개변수의 값을 대입하지 않으면 매개변수는 undefined가 됩니다.
+	func3();
+	
+	// 매개변수가 2개인 함수
+	var func4 = function(msg1, msg2){
+		document.writeln("<p>" + msg1 + ":" + msg2 + "</p>");
+	}
+	// msg1에 매개변수1 msg2에 매개변수2가 대입
+	func4("매개변수1", "매개변수2");
+	// msg1에 첫번째 매개변수가 대입되고 두번째는 undefined
+	func4("매개변수1");
+	// msg1과 msg2 모두 undefined
+	func4();
+
+</script>
+</html>

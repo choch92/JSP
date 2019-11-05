@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>분기문</title>
+</head>
+<body>
+
+</body>
+<script>
+	// score의 점수가 90에서 100사이이면 A
+	// 80-89 사이이면 B
+	// 70-79 사이이면 C
+	// 60-69 사이이면 D
+	// 0-59 사이이면 F
+	// 그 이외의 경우에는 잘못된 점수라고 브라우저에 출력
+	var score = 88;
+	var msg= null;
+	if(score >= 90 && score <=100){
+		msg = "A";
+	}
+	else if(score >= 80 && score < 90){
+		msg = "B";
+	}
+	else if(score >= 70 && score < 80){
+		msg = "C";
+	}
+	else if(score >= 60 && score < 70){
+		msg = "D";
+	}
+	else if(score >= 0 && score < 60){
+		msg = "F";
+	}
+	else{
+		msg = "잘못된 점수";
+	}
+	document.writeln(msg + "<br/>");
+	
+	var msg= null;
+	// menu가 1일 때는 한식 2일 때는 중식 3일 때는 분식 그외의 경우는 편의점
+	var menu = 3;
+	switch(menu){
+	case 1:
+		msg = "한식";
+		break;
+	case 2:
+		msg = "중식";
+		berak;
+	case 3:
+		msg = "분식";
+		break;
+	default:
+		msg = "편의점";
+		break;
+	}
+	document.writeln("오늘은 " + msg + "<br/>")
+
+</script>
+</html>
+
+</html>
