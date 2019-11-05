@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>argument와 return</title>
+</head>
+<body>
+</body>
+
+<script>
+	// 매개변수가 없는 함수인데 매개변수를 대입해서 사용
+	var noarg = function(){
+		// arguments 자바스크립트 함수가 내장하고 있는 매개변수 배열
+		for(idx in arguments){
+			document.writeln(arguments[idx] + "<br/>");
+		}
+	}
+	noarg("Hello");
+	noarg("Hello", "JavaScript");
+</script>
+
+</html>

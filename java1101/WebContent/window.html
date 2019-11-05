@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>window 객체</title>
+</head>
+<body>
+	<input type="button" value="다음" id="daumbtn"/><br/>
+	<input type="button" value="팝업" id="popup"/><br/>
+</body>
+<script>
+	document.getElementById("daumbtn").addEventListener("click", function(){
+		//URL 이동
+		window.location = "https://www.daum.net";
+	});
+	document.getElementById("popup").addEventListener("click", function(){
+		// URL 이동
+		window.open('https://www.daum.net', '다음', 'width=600, height=400');
+	});
+</script>
+</html>

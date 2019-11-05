@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>기타 내장 함수</title>
+</head>
+<body>
+
+</body>
+<script>
+	var addr = "https://localhost:8080/nicknamecheck.jsp?nick=여포";
+	document.writeln(escape(addr)+"<br/>");
+	// 이 방법으로 전송해야합니다.
+	document.writeln(encodeURI(addr) + "<br/>");
+	document.writeln(encodeURIComponent(addr) + "<br/>");
+</script>
+</html>

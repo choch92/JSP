@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>생성자</title>
+</head>
+<body>
+
+</body>
+<script>
+	var person = function(name, email, phone){
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+	}
+	var p1 = new person("조씨가문", "cho@sm.co.kr", "01011112222");
+	for(attr in p1){
+		document.writeln(attr + ":" + p1[attr] + "<br/>");
+	}
+</script>
+</html>
