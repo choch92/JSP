@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>정규식2</title>
+</head>
+<body>
+	<form action ="main.jsp">
+		<label for="tel">전화번호</label>
+		<!-- input요소에 pattern을 이용해서 정규식을 작성하면 스크립트 코드 없이도 유효성 검사가 가능한데
+		원하는 메시지를 출력할 수 없어서 자바스크립트로 직접 유효성 검사 코드를 만들기도 합니다. -->
+		<input type="text" id="tel" required="required" pattern="[0-9]{6}"/>
+		<input type="submit"value="전송"/>
+	</form>
+
+</body>
+</html>

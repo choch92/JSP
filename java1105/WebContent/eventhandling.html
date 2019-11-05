@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+</head>
+<body>
+	<form action="register.jsp" method="post" id="myform">
+		<label for="id"></label>
+		<input type="text" id="id" name="id" size="20" placeholder="아이디를 입력하세요"/>
+		<span id="idspan"></span><br/>
+		
+		<label for="pw"></label>
+		<input type="text" id="pw" name="pw" size="20" placeholder="비밀번호를 입력해주세요"/>
+		<span id="pwspan"></span><br/>
+		
+		<label for="pw1"></label>
+		<input type="password" id="pw1" name="pw1" size="20" placeholder="비밀번호 일치 확인란"/>
+		<span id="pw1span"></span><br/>
+		
+		<input type="submit" value="회원가입"/>
+		
+	</form>
+</body>
+<script>
+
+	// id불러오기
+	var inputid = document.getElementById("id");
+	var idspan = document.getElementById("idspan");
+	var inputpw = document.getElementById("pw");
+	var pwspan = document.getElementById("pwspan");
+	var inputpw1 = document.getElementById("pw1");
+	var pw1span = document.getElementById("pw1span");
+
+	// id 중복 체크 통과 여부를 확인할 변수
+	var idcheck = false;
+	
+	// input에 입력한 값을 찾아와서 root이면 사용 불가능한 아이디라고 출력하고 그렇지 않으면 사용 가능한 아이디라고 출력
+	inputid.addEventListener('focusout', function(e){
+		if(inputid.value === "root"){
+			idcheck = true;
+			idspan.innerHTML = "사용 불가능한 아이디";
+			idspan.style.color = "red";
+		}else{
+			idcheck = false;
+			idspan.innerHTML = "사용 가능한 아이디";
+		}
+	});
+	
+	// 서버에게 전송할 실제 비밀번호
+	var real ="";
+	
+	// 비밀번호 보안설정 및 보안기호로 출력하기
+	inputpw.addEventListener('keyup', function(e){
+		var password = inputpw.value;
+		var event = e || window.event;
+		// 입력된 비밀번호를 real에 저장
+		real = real + event.key;
+		// alert(real);
+		// 보여질 비밀번호를 생성
+		password = "";
+		// 입력한 글자보다 하나 작을 때 까지 * 를 입력
+		for(idx=0; idx<real.length-1; idx=idx+1){
+			password = password + "*";
+		}
+		// 입력한 마지막 글자를 보여질 비밀번호에 추가
+		password = password + real.charAt(real.length-1);
+		// 비밀번호 입력란에 설정
+		inputpw.value = password;
+		
+		var chcnt = 0;
+		var sucnt = 0;
+		for(idx=0; idx<real.length; idx=idx+1){
+			var ch = real.charAt(idx);
+			if(ch>='a' && ch<='z'){
+				chcnt = chcnt + 1;
+			}
+			else if(ch>='0' && ch<='9'){
+				sucnt = sucnt + 1;
+			}
+		}
+		if(chcnt > 0 && sucnt >0){
+			pwspan.innerHTML = "강함";
+		}else{
+			pwspan.innerHTML = "약함";
+		}
+	});
+	
+	var myform = document.getElementById("myform");
+	// submit 이벤트는 form에 있는 input 중에서 type이 submit인 버튼을 누르거나
+	// form 안에 있는 button태그로 만들어진 버튼을 클릭 하는 경우와
+	// form 객체가 submit()을 호출하는 경우에 발생합니다.
+	myform.addEventListener('submit', function(e){
+		// event객체 만들기
+		// IE 하위 버전 브라우저는 window.event가 이벤트 객체
+		var event = e || window.event;
+		var inputidvalue = inputid.value;
+		var inputpwvalue = inputpw.value;
+		var inputpw1value = inputpw1.value;
+		
+		if(inputidvalue.trim().length <=0){
+			idspan.innerHTML = "아이디는 필수 입력입니다.";
+			idspan.style.color = "red";
+			id.focus;
+			event.preventDefault();
+		}
+		else if(idcheck == true){
+			idspan.innerHTML = '아이디 중복 검사를  수행하세요!';
+			event.preventDefault();
+		}	
+		
+		if(!(inputpwvalue === inputpw1value)){
+			document.getElementById("pw1span").innerHTML = "비밀번호와 비밀번호확인란이 일치하지 않습니다.";
+			event.preventDefault();
+			pw.focus();
+		}
+	});
+</script>
+</html>
