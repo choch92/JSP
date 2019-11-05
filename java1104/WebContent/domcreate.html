@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>문서 내에 태그를 자바스크립트를 이용해서 생성</title>
+</head>
+<body>
+
+</body>
+<script>
+	// 제목 태그를 만들어서 생성
+	var heading = document.createElement('h1');
+	// 태그 안에 택스트 삽입
+	var titleNode = document.createTextNode('Hello Document Object');
+	// 태그 안에 문자열 삽입
+	heading.appendChild(titleNode);
+	// body에 추가하기
+	document.body.appendChild(heading);
+	
+	// 이미지 태그 생성
+	var img = document.createElement('img');
+	// 속성 설정
+	img.src='./images/8.jpeg';
+	img.width= 300;
+	img.height= 380;
+	// body에 추가하기
+	document.body.appendChild(img);
+	
+	// 기존 내용이 모두 삭제되고 내용이 삽입
+	// document.body.innerHTML = '<p>문단 태그</p>';
+	
+	// 기존 내용에 새로운 내용을 추가
+	document.body.innerHTML += '<p>문단태그</p>';
+</script>
+</html>

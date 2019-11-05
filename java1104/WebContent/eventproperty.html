@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 객체의 속성 확인</title>
+</head>
+<body>
+	<!-- 누르면 무엇인가 동작을 한다는 표시를 해주기 위해서 클릭 이벤트를 사용하는 태그는 a태그로 감싸서 작성 -->
+	<a href="#"><img src="./images/8.jpeg" width="250" height="300" id="itzy"/></a>
+</body>
+<script>
+	var itzy = document.getElementById("itzy");
+	itzy.addEventListener('click', function(e){
+		// event 객체 만들기
+		// 다른 라이브러리를 이용하지 않고 자바스크립트 만으로 코딩을 하다 보면 아래와 같은 구문이 많이 나옴
+		// 브라우저 호환성 때문입니다.
+		var event = e || window.event;
+		// 객체의 모든 속성과 값을 출력
+		for(attr in event){
+			document.writeln(attr + ":" + event[attr] + "<br/>");
+		}
+	});
+</script>
+</html>

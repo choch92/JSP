@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 버블링을 이용한 로그인</title>
+</head>
+<body>
+	<h1 id="outer">제목<p id="inner">자식태그</p>태그</h1>
+</body>
+<script>
+	document.getElementById("outer").addEventListener("click",function(e){
+		alert("부모 태그의 클릭 이벤트");
+	});
+	document.getElementById("inner").addEventListener("click", function(e){
+		alert("자식 태그의 클릭 이벤트");
+		// 이 코드가 없으면 위의 내용을 처리하고 부모에게 이벤트를 전파합니다.
+		// 이벤트 객체 찾아오기
+		var event = e || window.event;
+		// IE 하위 브라우저를 위한 설정
+		event.cancelBubble = true;
+		// 그 이외의 브라우저 설정
+		// event.stopPropagation이 속성이 존재한다면
+		if(event.stopPropagation){
+			event.stopPropagation();
+		}
+	});
+</script>
+</html>

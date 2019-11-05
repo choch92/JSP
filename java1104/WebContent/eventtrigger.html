@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 트리거를 이용한 로그인</title>
+<style>
+	a{
+		/* 밑줄 제거 */
+		text-decoration:none;
+	}
+	a:visited{
+		text-decoreation:none;
+		color:blue;
+	}
+	a:hover{
+		text-decoration:none;
+		background-color:papayawhip;
+	}
+	a:active{
+		text-decoration:none;
+		background-color:papayawhip;
+	}
+</style>
+</head>
+<body>
+	<form action="login.do" method="post" id="loginform">
+		<input type="text" id="id" name="id" placeholder="아이디를 입력하세요"/><br/>
+		<input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요"/><br/>
+		<input type="submit" value="로그인"/><br/>
+		<a href="#"><img src="./images/8.jpeg" id="loginimg" width="300" height="350"/></a><br/>
+		<a href="#"><span id="logintext">로그인</span></a>
+	
+	</form>
+</body>
+<script>
+	// 이미지를 클릭하면 폼에 submit 이벤트를 강제로 발생시킴 -이벤트 트리거
+	document.getElementById("loginimg").addEventListener('click', function(e){
+		document.getElementById("loginform").submit();
+	});
+	
+	// 텍스트를 클릭하면 폼에 submit이벤트를 강제로 발생시킴 - 이벤트 트리거
+	document.getElementById("logintext").addEventListener('click', function(e){
+		document.getElementById("loginform").submit();
+	});
+</script>
+</html>
