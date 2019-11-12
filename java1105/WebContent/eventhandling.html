@@ -18,7 +18,8 @@
 		<input type="password" id="pw1" name="pw1" size="20" placeholder="비밀번호 일치 확인란"/>
 		<span id="pw1span"></span><br/>
 		
-		<input type="submit" value="회원가입"/>
+		<input type="submit" value="회원가입"/><br/>
+		<a href="#"><img src="./images/10.jpeg" width="250" height="310" id="loginimg"/></a><br/>
 		
 	</form>
 </body>
@@ -114,6 +115,9 @@
 			event.preventDefault();
 			pw.focus();
 		}
+	});
+	document.getElementById("loginimg").addEventListener('click', function(e){
+		document.getElementById("myform").submit();
 	});
 </script>
 </html>
